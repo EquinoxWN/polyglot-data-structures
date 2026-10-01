@@ -1,0 +1,31 @@
+.DS_Store
+.env
+.idea/
+.vscode/
+*.log
+target/
+*.class
+*.iml
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+dist/
+build/
+*.egg-info/
+node_modules/
+dist/
+coverage/
+
+# Claude Code local settings
+.claude/
+CLAUDE.local.md
+
+# Local tool caches (kept inside the repo)
+.tmp/
+.venv/
+.npm-cache/
+.m2/
+.gocache/
+.gomodcache/

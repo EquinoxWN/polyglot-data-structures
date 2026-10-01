@@ -1,0 +1,14 @@
+{
+  "name": "polyglot-data-structures",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The reference you reach for when you need the right data structure under load: every core one in Java, Python and JS, with one test suite proving they behave identically.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "lint": "node --check src/index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
