@@ -9,6 +9,6 @@
     "lint": "node --check src/index.js"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   }
 }

@@ -46,7 +46,7 @@ _Steps 1 and 2 are built and tested (M1); the rest is on the [roadmap](#roadmap)
 | Tests | shared JSON test vectors; jqwik, Hypothesis, fast-check |
 | Bench | JMH, pyperf, mitata |
 
-Languages: **Java 21 · Python 3.12+ · JavaScript (Node 22)**, one folder each, driven by one shared spec.
+Languages: **Java 21 · Python 3.12+ · JavaScript (Node 24)**, one folder each, driven by one shared spec.
 
 | Path | What it is |
 |---|---|
