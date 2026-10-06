@@ -3,7 +3,7 @@
 [![ci](https://github.com/EquinoxWN/polyglot-data-structures/actions/workflows/ci.yml/badge.svg)](https://github.com/EquinoxWN/polyglot-data-structures/actions/workflows/ci.yml)
 ![status](https://img.shields.io/badge/status-M1%20done%2C%20M2%20in%20progress-yellow)
 
-> The reference you reach for when you need the right data structure under load: every core one in Java, Python and JS, with one test suite proving they behave identically.
+> One test suite, three languages: a min-heap, a hash map and an LRU cache written in Java, Python and JavaScript, all replaying the same language-neutral test vectors to prove they behave identically.
 
 Part of my **CS Foundations** list · Java · Python · JS · core project
 
@@ -46,13 +46,13 @@ _Steps 1 and 2 are built and tested (M1); the rest is on the [roadmap](#roadmap)
 
 ## Tech stack
 
-| Area | Tools |
-|---|---|
-| Code | Java 21, Python 3.13, TypeScript on Node |
-| Tests | shared JSON test vectors; jqwik, Hypothesis, fast-check |
-| Bench | JMH, pyperf, mitata |
+| Area | In M1 | Planned |
+|---|---|---|
+| Code | Java 21, Python 3.11+, JavaScript on Node.js 24 | More structures (balanced trees, B-tree) |
+| Tests | Shared JSON test vectors; JUnit, pytest, node:test | Property tests: jqwik, Hypothesis, fast-check |
+| Bench | - | JMH, pyperf, mitata |
 
-Languages: **Java 21 · Python 3.12+ · JavaScript (Node 24)**, one folder each, driven by one shared spec.
+Languages: **Java 21 · Python 3.11+ · JavaScript (Node 24)**, one folder each, driven by one shared spec.
 
 | Path | What it is |
 |---|---|
@@ -142,7 +142,7 @@ What this repo must show before it counts as done:
 ## Why it matters
 
 - **Interview angle:** LRU-cache and ordered-map coding rounds, plus 'how does your language's hash map actually work?'
-- **Upstream I'm contributing to:** OpenJDK or CPython: collection-related issues tagged for new contributors.
+- **Upstream I'd like to contribute to:** OpenJDK or CPython: collection-related issues tagged for new contributors.
 
 ## Design docs
 
