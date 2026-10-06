@@ -7,6 +7,12 @@
 
 Part of my **CS Foundations** list · Java · Python · JS · core project
 
+## Proof it works
+
+The same test vectors replayed in all three languages, after checking that the vectors are up to date: 22 Java, 23 Python and 23 JavaScript tests pass. Dependencies have no known vulnerabilities (the Java test dependency was upgraded during this check):
+
+![Vectors check, mvn verify, pytest, node --test and audits](docs/proof/tests.jpg)
+
 ## Architecture
 
 **What M1 runs today:**
