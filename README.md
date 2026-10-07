@@ -44,6 +44,12 @@ _Steps 1 and 2 are built and tested (M1); the rest is on the [roadmap](#roadmap)
 5. The README explains what textbooks skip: why a cache-friendly B-tree or open addressing often beats pointer-heavy structures at equal Big-O.
 6. Each implementation is compared with its standard library (java.util, Python dict, JS Map) to show where hand-written code loses, and why.
 
+## Who it helps
+
+- **Who:** Developers who port code between Java, Python and JavaScript, and learners comparing the languages.
+- **The problem:** Implementations of the same structure in different languages drift apart in behaviour.
+- **How to use it:** Replay the language-neutral JSON test vectors for the min-heap, hash map and LRU cache in all three languages, and add vectors when you add behaviour.
+
 ## Tech stack
 
 | Area | In M1 | Planned |
