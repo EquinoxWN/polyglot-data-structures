@@ -1,3 +1,6 @@
+# OSV-Scanner (https://google.github.io/osv-scanner/) checks every resolved Maven dependency.
+OSV ?= osv-scanner
+
 .PHONY: setup lint test vectors bench ci audit
 
 setup:
@@ -21,8 +24,10 @@ vectors:
 bench:
 	@echo "M2: JMH, pyperf and mitata benchmarks land with the property tests"
 
-# Known vulnerabilities in the installed dependencies.
+# Known vulnerabilities in Python and Maven dependencies.
 audit:
 	cd python && python -m pip_audit --skip-editable
+	cd java && mvn -B -q org.cyclonedx:cyclonedx-maven-plugin:2.9.3:makeAggregateBom -DoutputFormat=json -DoutputName=bom -DincludeTestScope=true
+	$(OSV) scan source -L java/target/bom.json
 
 ci: setup lint test
