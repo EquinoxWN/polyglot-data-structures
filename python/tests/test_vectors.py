@@ -55,5 +55,5 @@ def test_vectors_exist():
 
 
 def test_lru_rejects_zero_capacity():
-    with pytest.raises(ValueError, match="capacity must be at least 1"):
+    with pytest.raises(ValueError, match="capacity must be an integer of at least 1"):
         LRUCache(0)

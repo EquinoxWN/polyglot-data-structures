@@ -9,7 +9,7 @@ Part of my **CS Foundations** list · Java · Python · JS · core project
 
 ## Proof it works
 
-The same test vectors replayed in all three languages, after checking that the vectors are up to date: 22 Java, 23 Python and 23 JavaScript tests pass. Dependencies have no known vulnerabilities (the Java test dependency was upgraded during this check):
+The same test vectors replayed in all three languages, after checking that the vectors are up to date: 25 Java, 34 Python and 29 JavaScript tests pass. Dependencies have no known vulnerabilities (the Java test dependency was upgraded during this check):
 
 ![Vectors check, mvn verify, pytest, node --test and audits](docs/proof/tests.jpg)
 
@@ -92,27 +92,34 @@ Latest local run (full detail in [docs/results/m1.md](docs/results/m1.md)):
 | Check | Result |
 |---|---|
 | Shared vectors | 21 cases, 4,964 operations (min-heap, hash map, LRU cache) |
-| Java (JUnit) | 22 passed, 0 failed |
-| Python (pytest) | 23 passed, 0 failed |
-| JavaScript (node:test) | 23 passed, 0 failed |
+| Java (JUnit) | 25 passed, 0 failed |
+| Python (pytest) | 34 passed, 0 failed |
+| JavaScript (node:test) | 29 passed, 0 failed |
 | Vectors match the reference generator | yes (`--check`) |
 
-All three languages return identical results for every operation. CI re-runs this on every push.
+All three languages return identical results for every operation. CI re-runs this on every push. Beyond the vectors, each language tests what the vectors cannot express: the hash map's growth rule (through a read-only `capacity`), and rejected input (null or non-string keys, NaN heap values, LRU capacities that are not positive integers). The structures are not thread-safe: callers that share one across threads synchronise it, as with `java.util.HashMap`.
+
+The 10 quality rules and the mutation check are recorded in [docs/quality/2026-11-01.md](docs/quality/2026-11-01.md).
 
 ### Test map
 
 ```mermaid
 mindmap
-  root((68 tests pass))
-    Java 22
+  root((88 tests pass))
+    Java 25
       21 vector cases
-      argument check
-    Python 23
+      capacity check
+      growth rule and tombstones
+      null keys refused
+    Python 34
       21 vector cases
-      2 checks
-    JavaScript 23
+      growth rule and tombstones
+      capacity and NaN checks
+    JavaScript 29
       21 vector cases
-      2 checks
+      growth rule and tombstones
+      FNV-1a known values
+      key, capacity and NaN checks
     Shared vectors
       min heap 1223 ops
       hash map 1917 ops

@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { EmptyError, HashMap, LRUCache, MinHeap } from "../src/index.js";
+import { fnv1a } from "../src/hashMap.js";
 
 const VECTORS = fileURLToPath(new URL("../../spec/vectors/", import.meta.url));
 const EMPTY = { error: "empty" };
@@ -70,4 +71,44 @@ test("LRU rejects zero capacity", () => {
 
 test("HashMap rejects non-string keys", () => {
   assert.throws(() => new HashMap().set(1, 1), TypeError);
+});
+
+test("HashMap grows past 3/4 load and keeps load at or below 3/8 after growth", () => {
+  const m = new HashMap();
+  for (let i = 0; i < 6; i++) m.set(`k${i}`, i);
+  assert.equal(m.capacity, 8);
+  m.set("k6", 6);
+  assert.equal(m.capacity, 32);
+});
+
+test("HashMap reusing a tombstone does not count as a new slot", () => {
+  const m = new HashMap();
+  for (let i = 0; i < 5; i++) m.set(`k${i}`, i);
+  m.delete("k0");
+  m.set("k0", 0);
+  m.set("k5", 5);
+  assert.equal(m.capacity, 8);
+});
+
+test("HashMap rejects non-string keys on every operation", () => {
+  const m = new HashMap();
+  for (const op of [(k) => m.get(k), (k) => m.has(k), (k) => m.delete(k)]) {
+    for (const key of [null, undefined, 1, {}]) assert.throws(() => op(key), TypeError);
+  }
+});
+
+test("fnv1a matches the published FNV-1a 32-bit values", () => {
+  assert.equal(fnv1a(""), 0x811c9dc5);
+  assert.equal(fnv1a("a"), 0xe40c292c);
+  assert.equal(fnv1a("foobar"), 0xbf9cf968);
+});
+
+test("LRU rejects a capacity that is not a positive integer", () => {
+  for (const c of [1.5, NaN, "2", -1]) assert.throws(() => new LRUCache(c), RangeError);
+});
+
+test("MinHeap rejects NaN and non-numbers", () => {
+  const h = new MinHeap();
+  for (const v of [NaN, "1", null, undefined]) assert.throws(() => h.push(v), TypeError);
+  assert.equal(h.size, 0);
 });

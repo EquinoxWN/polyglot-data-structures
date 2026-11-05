@@ -124,6 +124,38 @@ class VectorsTest {
     }
 
     @Test
+    void hashMapGrowsPastThreeQuartersLoad() {
+        OpenHashMap<String, Integer> m = new OpenHashMap<>();
+        for (int i = 0; i < 6; i++) {
+            m.put("k" + i, i);
+        }
+        assertEquals(8, m.capacity());
+        m.put("k6", 6);
+        assertEquals(32, m.capacity());
+    }
+
+    @Test
+    void reusingATombstoneDoesNotCountAsANewSlot() {
+        OpenHashMap<String, Integer> m = new OpenHashMap<>();
+        for (int i = 0; i < 5; i++) {
+            m.put("k" + i, i);
+        }
+        m.remove("k0");
+        m.put("k0", 0);
+        m.put("k5", 5);
+        assertEquals(8, m.capacity());
+    }
+
+    @Test
+    void hashMapRejectsNullKeys() {
+        OpenHashMap<String, Integer> m = new OpenHashMap<>();
+        assertThrows(NullPointerException.class, () -> m.get(null));
+        assertThrows(NullPointerException.class, () -> m.put(null, 1));
+        assertThrows(NullPointerException.class, () -> m.remove(null));
+        assertThrows(NullPointerException.class, () -> m.containsKey(null));
+    }
+
+    @Test
     void lruRejectsZeroCapacity() {
         assertThrows(IllegalArgumentException.class, () -> new LruCache<String, Integer>(0));
     }
