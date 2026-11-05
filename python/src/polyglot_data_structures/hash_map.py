@@ -23,6 +23,11 @@ class HashMap:
     def __len__(self) -> int:
         return self._size
 
+    @property
+    def capacity(self) -> int:
+        """Number of slots; shows when the table grows."""
+        return len(self._keys)
+
     def __contains__(self, key: Hashable) -> bool:
         return self._find(key) >= 0
 

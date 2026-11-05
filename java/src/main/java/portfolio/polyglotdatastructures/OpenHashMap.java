@@ -97,6 +97,11 @@ public final class OpenHashMap<K, V> {
         return size;
     }
 
+    /** Returns the number of slots; shows when the table grows. */
+    public int capacity() {
+        return keys.length;
+    }
+
     /** Rehashes live entries into a table sized for them, dropping tombstones. */
     @SuppressWarnings("unchecked")
     private void resize() {

@@ -17,6 +17,8 @@ export class MinHeap {
 
   /** Adds a value and restores heap order. */
   push(value) {
+    // NaN compares false with everything and would break heap order.
+    if (typeof value !== "number" || Number.isNaN(value)) throw new TypeError("MinHeap values must be numbers, not NaN");
     this.#a.push(value);
     this.#siftUp(this.#a.length - 1);
   }

@@ -3,7 +3,7 @@ const DELETED = Symbol("deleted");
 const INITIAL = 8;
 
 /** 32-bit FNV-1a hash of a string's UTF-16 code units. */
-function fnv1a(key) {
+export function fnv1a(key) {
   let h = 0x811c9dc5;
   for (let i = 0; i < key.length; i++) {
     h ^= key.charCodeAt(i);
@@ -27,8 +27,14 @@ export class HashMap {
     return this.#size;
   }
 
-  /** Returns the slot holding key, or -1. */
+  /** Number of slots; shows when the table grows. */
+  get capacity() {
+    return this.#keys.length;
+  }
+
+  /** Returns the slot holding key, or -1; every operation accepts string keys only. */
   #find(key) {
+    if (typeof key !== "string") throw new TypeError("HashMap keys must be strings");
     const mask = this.#keys.length - 1;
     for (let i = fnv1a(key) & mask; ; i = (i + 1) & mask) {
       const k = this.#keys[i];
@@ -50,7 +56,6 @@ export class HashMap {
 
   /** Inserts or replaces; returns the previous value or null. */
   set(key, value) {
-    if (typeof key !== "string") throw new TypeError("HashMap keys must be strings");
     let i = this.#find(key);
     if (i >= 0) {
       const old = this.#values[i];

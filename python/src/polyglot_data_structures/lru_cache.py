@@ -19,9 +19,12 @@ class LRUCache:
     """Fixed-capacity cache with O(1) get and put."""
 
     def __init__(self, capacity: int) -> None:
-        if capacity < 1:
-            raise ValueError("capacity must be at least 1")
-        self._capacity = capacity
+        # A float such as 2.5 would never equal len() and the cache would never evict;
+        # 2.0 stays accepted, as in JS (Number.isInteger).
+        whole = isinstance(capacity, int) or (isinstance(capacity, float) and capacity.is_integer())
+        if isinstance(capacity, bool) or not whole or capacity < 1:
+            raise ValueError("capacity must be an integer of at least 1")
+        self._capacity = int(capacity)
         self._index: dict[Any, _Node] = {}
         self._head = _Node()  # sentinel: head.next is most recent, head.prev least recent
 

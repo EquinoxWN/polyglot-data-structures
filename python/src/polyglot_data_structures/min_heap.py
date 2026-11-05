@@ -18,6 +18,8 @@ class MinHeap:
 
     def push(self, value: int) -> None:
         """Add value and restore heap order."""
+        if value != value:  # NaN compares false with everything and would break heap order
+            raise ValueError("cannot push NaN")
         self._a.append(value)
         self._sift_up(len(self._a) - 1)
 
