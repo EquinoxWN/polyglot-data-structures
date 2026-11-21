@@ -9,7 +9,7 @@ Part of my **CS Foundations** list · Java · Python · JS · core project
 
 ## Proof it works
 
-The same test vectors replayed in all three languages, after checking that the vectors are up to date: 25 Java, 34 Python and 29 JavaScript tests pass. Dependencies have no known vulnerabilities (the Java test dependency was upgraded during this check):
+The same test vectors replayed in all three languages, after checking that the vectors are up to date: 25 Java, 35 Python and 29 JavaScript tests pass. Dependencies have no known vulnerabilities (the Java test dependency was upgraded during this check):
 
 ![Vectors check, mvn verify, pytest, node --test and audits](docs/proof/tests.jpg)
 
@@ -93,7 +93,7 @@ Latest local run (full detail in [docs/results/m1.md](docs/results/m1.md)):
 |---|---|
 | Shared vectors | 21 cases, 4,964 operations (min-heap, hash map, LRU cache) |
 | Java (JUnit) | 25 passed, 0 failed |
-| Python (pytest) | 34 passed, 0 failed |
+| Python (pytest) | 35 passed, 0 failed |
 | JavaScript (node:test) | 29 passed, 0 failed |
 | Vectors match the reference generator | yes (`--check`) |
 
@@ -105,7 +105,7 @@ The 10 quality rules and the mutation check are recorded in [docs/quality/2026-1
 
 ```mermaid
 mindmap
-  root((88 tests pass))
+  root((89 tests pass))
     Java 25
       21 vector cases
       capacity check
