@@ -47,3 +47,12 @@ def test_heap_rejects_nan():
     with pytest.raises(ValueError, match="NaN"):
         h.push(math.nan)
     assert len(h) == 0
+
+
+def test_heap_push_of_an_incomparable_value_leaves_the_heap_unchanged():
+    heap = MinHeap()
+    for v in (5, 3, 8, 1):
+        heap.push(v)
+    with pytest.raises(TypeError):
+        heap.push("x")
+    assert [heap.pop() for _ in range(len(heap))] == [1, 3, 5, 8]

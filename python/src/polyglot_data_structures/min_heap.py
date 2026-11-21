@@ -20,6 +20,9 @@ class MinHeap:
         """Add value and restore heap order."""
         if value != value:  # NaN compares false with everything and would break heap order
             raise ValueError("cannot push NaN")
+        if self._a:
+            # Fails here, before any change, for a value the heap's items cannot compare with.
+            value < self._a[0]  # noqa: B015
         self._a.append(value)
         self._sift_up(len(self._a) - 1)
 
